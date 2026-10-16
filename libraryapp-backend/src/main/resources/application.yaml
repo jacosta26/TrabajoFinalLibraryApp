@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: libraryapp-backend
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:5432/postgres}
+    username: ${DB_USERNAME:postgres.pdabebsnkatpvxtwlfcp}
+    password: ${DB_PASSWORD:encoded01230129}
+  jpa:
+    database: postgresql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
