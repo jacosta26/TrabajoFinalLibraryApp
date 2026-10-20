@@ -1,0 +1,67 @@
+<router-outlet></router-outlet>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Juan Pérez" #input>
+</mat-form-field>
+
+<div class="mat-shadow-2">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="idCliente">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.idCliente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombres">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRES </th>
+      <td mat-cell *matCellDef="let row"> {{row.nombres}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDOS </th>
+      <td mat-cell *matCellDef="let row"> {{row.apellidos}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cedula">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CÉDULA </th>
+      <td mat-cell *matCellDef="let row"> {{row.cedula}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL </th>
+      <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIONS </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-flat-button [routerLink]="['edit', row.idCliente]">
+          <span>Edit</span>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-flat-button class="cancel-button" (click)="delete(row.idCliente)">
+          <span>Delete</span>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="6">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[2, 5, 10, 20, 100]" 
+  [length]="$totalElements()"
+  [pageSize]="$pageRequest().size"
+  (page)="changePage($event)"
+  aria-label="Select page of clients"></mat-paginator>
+
+  <button mat-fab style="float: right;" routerLink="/pages/cliente/new">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

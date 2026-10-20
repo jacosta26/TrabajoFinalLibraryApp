@@ -1,0 +1,7 @@
+.detail-container { max-width: 600px; margin: 0 auto; padding: 16px; }
+.detail-block { margin-top: 16px; }
+.detail-block h3 { margin: 0 0 4px 0; }
+.libro-line { display: flex; flex-direction: column; padding: 8px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+.libro-title { font-weight: 500; }
+.libro-author { font-size: 12px; opacity: 0.7; }
+.dialog-actions { display: flex; justify-content: flex-end; margin-top: 16px; }

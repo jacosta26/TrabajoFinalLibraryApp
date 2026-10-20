@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+.cancel-button {
+  background-color: red !important;
+  color: white !important;
+}
+.form-container { max-width: 800px; margin: 0 auto; padding: 16px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 10px; }
+.form-actions-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+.buttons-wrapper { display: flex; gap: 12px; }
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-actions-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+}

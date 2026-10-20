@@ -1,0 +1,91 @@
+<mat-stepper #stepper linear>
+  <mat-step label="Principal">
+    <form [formRoot]="reservaForm.$form">
+      <div class="form-grid">
+        <mat-form-field>
+          <mat-label>Cliente</mat-label>
+          <mat-select [formField]="reservaForm.$form.idCliente">
+            @for (cliente of $clientes(); track cliente.idCliente) {
+              <mat-option [value]="cliente.idCliente">
+                {{ cliente.nombres }} {{ cliente.apellidos }} - {{ cliente.cedula }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fecha de reserva</mat-label>
+          <input matInput [matDatepicker]="picker" [min]="today" [formField]="reservaForm.$form.fechaReserva" />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <h3>Libros</h3>
+
+      @if ($loading()) {
+        <p>Cargando...</p>
+      }
+
+      <div class="libro-grid">
+        @for (libro of $libros(); track libro.idLibro) {
+          <mat-card
+            class="libro-card"
+            [ngClass]="{ 'libro-card-selected': isSelected(libro) }"
+            (click)="selectLibro(libro)">
+            <mat-card-header>
+              <mat-card-title>{{ libro.title }}</mat-card-title>
+              <mat-card-subtitle>{{ libro.nameAuthor }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ libro.isbn }}</p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+
+      <div class="step-actions">
+        <button mat-flat-button type="button" matStepperNext [disabled]="!$canSave()">
+          <span>Siguiente</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step label="Review">
+    <div class="review">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Resumen</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="review-line">
+            <strong>Cliente:</strong>
+            {{ $selectedCliente()?.nombres }} {{ $selectedCliente()?.apellidos }}
+          </p>
+          <p class="review-line">
+            <strong>Libro:</strong>
+            {{ $selectedLibro()?.title }}
+          </p>
+          <p class="review-line">
+            <strong>Fecha:</strong>
+            {{ reservaForm.$model().fechaReserva | date:'dd/MM/yyyy' }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="step-actions">
+        <button mat-flat-button type="button" matStepperPrevious>
+          <span>Atrás</span>
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <button mat-flat-button type="button" [disabled]="!$canSave()" (click)="save()">
+          <span>Guardar</span>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

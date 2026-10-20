@@ -1,0 +1,53 @@
+<mat-dialog-content>
+    <div class="form-container">
+        <mat-toolbar>
+            <span>Libro Info</span>
+        </mat-toolbar>
+
+        <form [formRoot]="libroForm.$form" (submit)="operate()">
+            <div class="form-grid">
+                <mat-form-field>
+                    <mat-label>Categoría</mat-label>
+                    <mat-select [formField]="libroForm.$form.idCategoria">
+                        @for (sp of $categorias(); track $index) {
+                            <mat-option [value]="sp.idCategoria">{{ sp.nombreCategoria }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Título</mat-label>
+                    <input matInput placeholder="Título" [formField]="libroForm.$form.title" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Autor</mat-label>
+                    <input matInput placeholder="Autor" [formField]="libroForm.$form.nameAuthor" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>ISBN</mat-label>
+                    <input matInput placeholder="ISBN" [formField]="libroForm.$form.isbn" />
+                </mat-form-field>
+            </div>
+            <div class="form-actions-row">
+                <div class="checkbox-wrapper">
+                    <mat-checkbox [formField]="libroForm.$form.disponible">
+                        Disponible
+                    </mat-checkbox>
+                </div>
+                <div class="buttons-wrapper">
+                    <button mat-flat-button type="submit" [disabled]="libroForm.isInvalid()">
+                        <span>OK</span>
+                        <mat-icon>done</mat-icon>
+                    </button>
+
+                    <button mat-flat-button type="button" class="cancel-button" (click)="close()">
+                        <span>Cancel</span>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>

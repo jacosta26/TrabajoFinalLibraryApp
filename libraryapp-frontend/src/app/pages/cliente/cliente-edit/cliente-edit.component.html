@@ -1,0 +1,72 @@
+<h2>{{ $title() }}</h2>
+
+<form [formRoot]="clienteForm.$form" class="example-container" (submit)="operate()">
+
+    <div [hidden]="true">
+        <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput placeholder="ID" [formField]="clienteForm.$form.idCliente">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <mat-label>NOMBRES</mat-label>
+        <input matInput placeholder="Nombres" [formField]="clienteForm.$form.nombres">
+        @if (clienteForm.$form.nombres().errors().some(error => error.kind === 'required') && clienteForm.$form.nombres().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (clienteForm.$form.nombres().errors().some(error => error.kind === 'minLength') && clienteForm.$form.nombres().touched()) {
+            <small class="invalid">MinLength is 3</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>APELLIDOS</mat-label>
+        <input matInput placeholder="Apellidos" [formField]="clienteForm.$form.apellidos">
+        @if (clienteForm.$form.apellidos().errors().some(error => error.kind === 'required') && clienteForm.$form.apellidos().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (clienteForm.$form.apellidos().errors().some(error => error.kind === 'minLength') && clienteForm.$form.apellidos().touched()) {
+            <small class="invalid">MinLength is 2</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>CÉDULA</mat-label>
+        <input matInput placeholder="Cédula" [formField]="clienteForm.$form.cedula">
+        @if (clienteForm.$form.cedula().errors().some(error => error.kind === 'required') && clienteForm.$form.cedula().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (clienteForm.$form.cedula().errors().some(error => error.kind === 'minLength') && clienteForm.$form.cedula().touched()) {
+            <small class="invalid">MinLength is 5</small>
+        }
+        @if (clienteForm.$form.cedula().errors().some(error => error.kind === 'pattern') && clienteForm.$form.cedula().touched()) {
+            <small class="invalid">Only numbers</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>EMAIL</mat-label>
+        <input matInput placeholder="Email" [formField]="clienteForm.$form.email">
+        @if (clienteForm.$form.email().errors().some(error => error.kind === 'required') && clienteForm.$form.email().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (clienteForm.$form.email().errors().some(error => error.kind === 'minLength') && clienteForm.$form.email().touched()) {
+            <small class="invalid">MinLength is 11</small>
+        }
+        @if (clienteForm.$form.email().errors().some(error => error.kind === 'email') && clienteForm.$form.email().touched()) {
+            <small class="invalid">Invalid email</small>
+        }
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" [disabled]="clienteForm.isInvalid()">
+        <span>OK</span>
+        <mat-icon>done</mat-icon>
+    </button>
+
+    <button mat-flat-button type="button" class="cancel-button" routerLink="/pages/cliente">
+        <span>Cancel</span>
+        <mat-icon>cancel</mat-icon>
+    </button>
+
+</form>

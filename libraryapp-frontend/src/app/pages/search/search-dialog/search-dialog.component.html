@@ -1,0 +1,35 @@
+<mat-dialog-content>
+  <div class="detail-container">
+    <mat-toolbar>
+      <span>Reserva #{{ data.idReserva }}</span>
+    </mat-toolbar>
+
+    <div class="detail-block">
+      <h3>Cliente</h3>
+      <p>{{ $reserva().cliente?.nombres }} {{ $reserva().cliente?.apellidos }}</p>
+      <p>{{ $reserva().cliente?.cedula }}</p>
+    </div>
+
+    <div class="detail-block">
+      <h3>Fecha de reserva</h3>
+      <p>{{ $reserva().fechaReserva | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+
+    <div class="detail-block">
+      <h3>Libros</h3>
+      @for (detalle of $reserva().detalles; track $index) {
+        <div class="libro-line">
+          <span class="libro-title">{{ detalle.libro?.title }}</span>
+          <span class="libro-author">{{ detalle.libro?.nameAuthor }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="dialog-actions">
+      <button mat-flat-button type="button" class="cancel-button" (click)="close()">
+        <span>Cerrar</span>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -1,0 +1,53 @@
+<form [formRoot]="categoriaForm.$form" class="example-container" (submit)="operate()">
+
+    <div [hidden]="true">
+        <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput placeholder="ID" [formField]="categoriaForm.$form.idCategoria">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <mat-label>NAME</mat-label>
+        <input matInput placeholder="Name" [formField]="categoriaForm.$form.nombreCategoria">
+        @if (categoriaForm.$form.nombreCategoria().errors().some(error => error.kind === 'required') && categoriaForm.$form.nombreCategoria().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (categoriaForm.$form.nombreCategoria().errors().some(error => error.kind === 'minLength') && categoriaForm.$form.nombreCategoria().touched()) {
+            <small class="invalid">MinLength is 5</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>DESCRIPTION</mat-label>
+        <input matInput placeholder="Description" [formField]="categoriaForm.$form.descripcionCategoria">
+        @if (categoriaForm.$form.descripcionCategoria().errors().some(error => error.kind === 'required') && categoriaForm.$form.descripcionCategoria().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (categoriaForm.$form.descripcionCategoria().errors().some(error => error.kind === 'minLength') && categoriaForm.$form.descripcionCategoria().touched()) {
+            <small class="invalid">MinLength is 15</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>STATE</mat-label>
+        <input matInput placeholder="State" [formField]="categoriaForm.$form.estadoCategoria">
+        @if (categoriaForm.$form.estadoCategoria().errors().some(error => error.kind === 'required') && categoriaForm.$form.estadoCategoria().touched()) {
+            <small class="invalid">Is required</small>
+        }
+        @if (categoriaForm.$form.estadoCategoria().errors().some(error => error.kind === 'minLength') && categoriaForm.$form.estadoCategoria().touched()) {
+            <small class="invalid">MinLength is 5</small>
+        }
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" [disabled]="categoriaForm.isInvalid()">
+        <span>OK</span>
+        <mat-icon>done</mat-icon>
+    </button>
+
+    <button mat-flat-button type="button" class="cancel-button" routerLink="/pages/categoria">
+        <span>Cancel</span>
+        <mat-icon>cancel</mat-icon>
+    </button>
+
+</form>
