@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("v1/reservations")
@@ -68,7 +69,9 @@ public class ReservaController {
 
     @PostMapping("/search/others")
     public ResponseEntity<List<ReservaDTO>> searchByOthers(@RequestBody FilterReservaDTO filter) {
-        List<Reserva> list = service.search(filter.cedula(), filter.fullname());
+        String cedula = (Objects.isNull(filter.cedula()) ||  filter.cedula().isEmpty()) ? null : filter.cedula();
+        String fullName = (Objects.isNull(filter.fullname()) ||  filter.fullname().isEmpty()) ? null : filter.fullname();
+        List<Reserva> list = service.search(cedula, fullName);
         List<ReservaDTO> listDto = list.stream().map(this::convertToDto).toList();
         return ResponseEntity.ok(listDto);
     }
